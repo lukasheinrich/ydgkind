@@ -1,7 +1,14 @@
 sudo: required
 services:
 - docker
+language: python
+python:
+- '2.7'
+- '3.4'
+- '3.5'
+- '3.6'
 install:
+- sudo apt-get install -y golang-go
 - pip install -U yadage
 script:
 - pyflakes yadage
