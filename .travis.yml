@@ -9,5 +9,4 @@ install:
 - pip install -U yadage
 script:
 - docker ps
-- go get sigs.k8s.io/kind
-- kind create cluster
+- go version
