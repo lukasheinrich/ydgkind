@@ -1,0 +1,8 @@
+sudo: required
+services:
+- docker
+install:
+- pip install -U yadage
+script:
+- pyflakes yadage
+
