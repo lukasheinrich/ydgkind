@@ -8,5 +8,5 @@ install:
 - sudo apt-get install -y golang-go
 - pip install -U yadage
 script:
-- pyflakes yadage
+- docker ps
 
