@@ -5,10 +5,8 @@ language: python
 python:
 - '3.6'
 install:
+- pip install -U yadage
 - sudo apt-get install golang-1.10-go
-#- pip install -U yadage
-script:
-- docker ps
 - /usr/lib/go-1.10/bin/go version
 - export GOROOT=/usr/lib/go-1.10
 - /usr/lib/go-1.10/bin/go get sigs.k8s.io/kind
@@ -18,5 +16,6 @@ script:
 - sudo apt-get install -y kubectl
 - kind create cluster
 - export KUBECONFIG="$(kind get kubeconfig-path --name="1")"
+script:
 - kubectl cluster-info
 
