@@ -18,4 +18,8 @@ install:
 - export KUBECONFIG="$(kind get kubeconfig-path --name="1")"
 script:
 - kubectl cluster-info
-
+- kubectl create -f job.yml
+- kubectl get pods
+- sleep 60
+- kubectl logs job/hello
+- kubectl delete -f job.yml
