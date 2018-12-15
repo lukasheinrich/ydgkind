@@ -6,7 +6,7 @@ python:
 - '3.6'
 install:
 - sudo apt-get install golang-1.10-go
-- pip install -U yadage
+#- pip install -U yadage
 script:
 - docker ps
 - /usr/lib/go-1.10/bin/go version
