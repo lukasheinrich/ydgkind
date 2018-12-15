@@ -10,3 +10,5 @@ install:
 script:
 - docker ps
 - go version
+- go get sigs.k8s.io/kind
+- kind create cluster
