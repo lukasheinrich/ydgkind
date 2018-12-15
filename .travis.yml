@@ -19,6 +19,7 @@ install:
 script:
 - kubectl cluster-info
 - kubectl create -f job.yml
+- sleep 5
 - kubectl get pods
 - sleep 60
 - kubectl logs job/hello
