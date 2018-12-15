@@ -1,0 +1,64 @@
+---
+{
+   "apiVersion": "v1",
+   "data": {
+      "workflow.yml": "{\"backend\": \"kubedirectjob\", \"backendopts\": {\"claim_name\": \"mylocal-pvc\", \"kubeconfig\": \"incluster\", \"path_base\": \"/data/\", \"purepubopts\": {\"exec\": {\"logging\": false}}}, \"ctrlopts\": {\"disable_prepub\": true}, \"dataarg\": \"cifwflow-123\", \"initdata\": {\"par\": \"Lukas\"}, \"plugins\": [\"yadageextresult.pktbackend\"], \"toplevel\": \"from-github/testing/busybox-helloworld\", \"visualize\": true, \"workflow\": \"workflow.yml\"}"
+   },
+   "kind": "ConfigMap",
+   "metadata": {
+      "name": "workflow-config-123"
+   }
+}
+---
+{
+   "apiVersion": "batch/v1",
+   "kind": "Job",
+   "metadata": {
+      "name": "workflow-123"
+   },
+   "spec": {
+      "backoffLimit": 0,
+      "template": {
+         "spec": {
+            "containers": [
+               {
+                  "command": [
+                     "yadage-run",
+                     "-f",
+                     "/etc/config/workflow.yml"
+                  ],
+                  "image": "lukasheinrich/yadkube",
+                  "name": "runner",
+                  "volumeMounts": [
+                     {
+                        "mountPath": "/data",
+                        "name": "data"
+                     },
+                     {
+                        "mountPath": "/etc/config",
+                        "name": "config-volume"
+                     }
+                  ],
+                  "workingDir": "/data"
+               }
+            ],
+            "restartPolicy": "Never",
+            "volumes": [
+               {
+                  "name": "data",
+                  "persistentVolumeClaim": {
+                     "claimName": "mylocal-pvc"
+                  }
+               },
+               {
+                  "configMap": {
+                     "name": "workflow-config-123"
+                  },
+                  "name": "config-volume"
+               }
+            ]
+         }
+      }
+   }
+}
+...
