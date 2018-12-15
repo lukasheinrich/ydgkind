@@ -10,5 +10,6 @@ install:
 script:
 - docker ps
 - /usr/lib/go-1.10/bin/go version
+- export GOROOT=/usr/lib/go-1.10
 - /usr/lib/go-1.10/bin/go get sigs.k8s.io/kind
 - kind create cluster
